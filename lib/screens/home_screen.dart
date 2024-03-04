@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_db/models/gallery_buffer.dart';
 import 'package:movie_db/models/http_helper.dart';
 import 'package:movie_db/widgets/small_art_widget.dart';
 
@@ -12,11 +13,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late Future<ArtModel?> result;
+  // late Future<ArtModel?> result;
+  bool isLoaded = false;
+  final GalleryBuffer galleryBuffer = GalleryBuffer();
 
   @override
   void initState() {
-    result = HttpHelper.getObject(8800);
+    // result = HttpHelper.getObject(8800);
+    loadFeed();
     super.initState();
   }
 
@@ -27,17 +31,26 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text('Gallery'),
       ),
       body: FutureBuilder<ArtModel?>(
-          future: result,
+          future: null,
           builder: (context, snapshot) {
             Widget child;
-            if (snapshot.hasData) {
-              child = SmallArtWidget(snapshot.data!);
-              print(snapshot.data?.toJson());
+            if (isLoaded) {
+              // child = SmallArtWidget(snapshot.data!);
+              // print(snapshot.data?.toJson());
+              child = ListView.builder(
+                  itemBuilder: ((context, index) =>
+                      SmallArtWidget(galleryBuffer.data[index]!)));
             } else {
               child = CircularProgressIndicator();
             }
             return child;
           }),
     );
+  }
+
+  void loadFeed() async {
+    isLoaded = false;
+    await galleryBuffer.fetch(20);
+    isLoaded = true;
   }
 }
