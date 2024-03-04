@@ -11,7 +11,7 @@ ArtModel _$ArtModelFromJson(Map<String, dynamic> json) => ArtModel(
       isHighlight: json['isHighlight'] as bool?,
       accessionNumber: json['accessionNumber'] as String?,
       accessionYear: json['accessionYear'] as String?,
-      isPublicDomain: json['isPublicDomain'] as bool,
+      isPublicDomain: json['isPublicDomain'] as bool?,
       primaryImage: json['primaryImage'] as String?,
       primaryImageSmall: json['primaryImageSmall'] as String?,
       additionalImages: (json['additionalImages'] as List<dynamic>)
