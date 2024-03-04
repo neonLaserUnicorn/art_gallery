@@ -14,7 +14,7 @@ class ArtModel {
   final bool? isHighlight;
   final String? accessionNumber;
   final String? accessionYear;
-  final bool isPublicDomain;
+  final bool? isPublicDomain;
   final String? primaryImage;
   final String? primaryImageSmall;
   final List<String?> additionalImages;

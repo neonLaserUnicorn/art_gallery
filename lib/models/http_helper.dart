@@ -7,7 +7,7 @@ import 'art_model.dart';
 
 class HttpHelper {
   static const String urlBase =
-      "https://collectionapi.metmuseum.org/public/collection/v1/objects";
+      "https://collectionapi.metmuseum.org/public/collection/v1/objects?isPublic=true&objectName=Painting";
 
   static Future<ArtModel?> getObject(int id) async {
     http.Response result = await http.get(Uri.parse('$urlBase/$id'));
