@@ -42,8 +42,9 @@ class _SmallArtWidgetState extends State<SmallArtWidget> {
                             borderRadius: BorderRadius.circular(12.0),
                             child: Image(
                                 fit: BoxFit.fitWidth,
-                                image: NetworkImage(model.primaryImageSmall ??
-                                    model.primaryImage!)),
+                                image: NetworkImage(//model.primaryImageSmall ??
+                                    //     model.primaryImage ??
+                                    "https://placehold.co/200x100")),
                           ),
                           Text('${model.title}'),
                           Text('${model.artistDisplayName}'),
