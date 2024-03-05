@@ -12,32 +12,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late Future<ArtModel?> result;
-
-  @override
-  void initState() {
-    result = HttpHelper.getObject(8800);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Gallery'),
-      ),
-      body: FutureBuilder<ArtModel?>(
-          future: result,
-          builder: (context, snapshot) {
-            Widget child;
-            if (snapshot.hasData) {
-              child = SmallArtWidget(snapshot.data!);
-              print(snapshot.data?.toJson());
-            } else {
-              child = CircularProgressIndicator();
-            }
-            return child;
-          }),
-    );
+        appBar: AppBar(
+          title: Text('Gallery'),
+        ),
+        body: ListView.builder(
+            itemBuilder: ((context, index) => SmallArtWidget(index))));
   }
 }
