@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:movie_db/models/http_helper.dart';
+import 'package:movie_db/models/gallery_buffer.dart';
 
 import '../models/art_model.dart';
 
@@ -17,7 +16,7 @@ class _SmallArtWidgetState extends State<SmallArtWidget> {
 
   @override
   void initState() {
-    result = HttpHelper.getObject(widget.objectId);
+    result = GalleryBuffer.get(widget.objectId);
     super.initState();
   }
 
@@ -42,8 +41,8 @@ class _SmallArtWidgetState extends State<SmallArtWidget> {
                             borderRadius: BorderRadius.circular(12.0),
                             child: Image(
                                 fit: BoxFit.fitWidth,
-                                image: NetworkImage(//model.primaryImageSmall ??
-                                    //     model.primaryImage ??
+                                image: NetworkImage(model.primaryImageSmall ??
+                                    model.primaryImage ??
                                     "https://placehold.co/200x100")),
                           ),
                           Text('${model.title}'),
