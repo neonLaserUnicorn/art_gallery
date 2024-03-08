@@ -18,8 +18,10 @@ class _HomeScreenState extends State<HomeScreen> {
           title: Text('Gallery'),
         ),
         body: Cache(
-          child: ListView.builder(
-              itemBuilder: ((context, index) => SmallArtWidget(index))),
+          child: Builder(builder: (context) {
+            return ListView.builder(
+                itemBuilder: ((context, index) => SmallArtWidget(index)));
+          }),
         ));
   }
 }

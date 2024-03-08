@@ -23,73 +23,58 @@ class _SmallArtWidgetState extends State<SmallArtWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (Cache.of(context)?.cache['${widget.objectId}'] == null) {
-      return FutureBuilder<ArtModel?>(
-          future: result,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              final model = snapshot.data!;
-              Cache.of(context)?.cache['${widget.objectId}'] = model;
-              return LayoutBuilder(builder: (context, constraints) {
-                return SizedBox(
-                  width: constraints.maxWidth / 2,
-                  child: IntrinsicHeight(
-                    child: Card(
-                      elevation: 10,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(12.0),
-                              child: Image(
-                                  fit: BoxFit.fitWidth,
-                                  image: NetworkImage(model.primaryImageSmall ??
-                                      model.primaryImage ??
-                                      "https://placehold.co/200x100")),
-                            ),
-                            Text('${model.title}'),
-                            Text('${model.artistDisplayName}'),
-                          ],
-                        ),
-                      ),
-                    ),
+    final cache = Cache.of(context)?.cache;
+    final model = cache?['${widget.objectId}'];
+    return model != null
+        ? _buildCached(context, model)
+        : _buildFuture(context, result);
+  }
+
+  Widget _buildFuture(BuildContext context, Future<ArtModel?> result) {
+    return FutureBuilder<ArtModel?>(
+        future: result,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final model = snapshot.data!;
+            Cache.of(context)?.cache['${widget.objectId}'] = model;
+            return _buildCached(context, model);
+          } else {
+            return const Center(
+                child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: CircularProgressIndicator(),
+            ));
+          }
+        });
+  }
+
+  Widget _buildCached(BuildContext context, ArtModel model) {
+    return LayoutBuilder(builder: (context, constraints) {
+      return SizedBox(
+        width: constraints.maxWidth / 2,
+        child: IntrinsicHeight(
+          child: Card(
+            elevation: 10,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12.0),
+                    child: Image(
+                        fit: BoxFit.fitWidth,
+                        image: NetworkImage(model.primaryImageSmall ??
+                            model.primaryImage ??
+                            "https://placehold.co/200x100")),
                   ),
-                );
-              });
-            } else {
-              return Center(child: CircularProgressIndicator());
-            }
-          });
-    } else {
-      final model = Cache.of(context)?.cache['${widget.objectId}']!;
-      return LayoutBuilder(builder: (context, constraints) {
-        return SizedBox(
-          width: constraints.maxWidth / 2,
-          child: IntrinsicHeight(
-            child: Card(
-              elevation: 10,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(12.0),
-                      child: Image(
-                          fit: BoxFit.fitWidth,
-                          image: NetworkImage(model.primaryImageSmall ??
-                              model.primaryImage ??
-                              "https://placehold.co/200x100")),
-                    ),
-                    Text('${model.title}'),
-                    Text('${model.artistDisplayName}'),
-                  ],
-                ),
+                  Text(model.title!),
+                  Text(model.artistDisplayName!),
+                ],
               ),
             ),
           ),
-        );
-      });
-    }
+        ),
+      );
+    });
   }
 }
