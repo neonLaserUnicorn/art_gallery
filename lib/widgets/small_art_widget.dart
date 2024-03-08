@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_db/models/gallery_buffer.dart';
 
 import '../models/art_model.dart';
+import '../models/cache.dart';
 
 class SmallArtWidget extends StatefulWidget {
   final int objectId;
@@ -22,41 +23,73 @@ class _SmallArtWidgetState extends State<SmallArtWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
+    if (Cache.of(context)?.cache['${widget.objectId}'] == null) {
       return FutureBuilder<ArtModel?>(
           future: result,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final model = snapshot.data!;
-              return SizedBox(
-                width: constraints.maxWidth / 2,
-                child: IntrinsicHeight(
-                  child: Card(
-                    elevation: 10,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12.0),
-                            child: Image(
-                                fit: BoxFit.fitWidth,
-                                image: NetworkImage(model.primaryImageSmall ??
-                                    model.primaryImage ??
-                                    "https://placehold.co/200x100")),
-                          ),
-                          Text('${model.title}'),
-                          Text('${model.artistDisplayName}'),
-                        ],
+              Cache.of(context)?.cache['${widget.objectId}'] = model;
+              return LayoutBuilder(builder: (context, constraints) {
+                return SizedBox(
+                  width: constraints.maxWidth / 2,
+                  child: IntrinsicHeight(
+                    child: Card(
+                      elevation: 10,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(12.0),
+                              child: Image(
+                                  fit: BoxFit.fitWidth,
+                                  image: NetworkImage(model.primaryImageSmall ??
+                                      model.primaryImage ??
+                                      "https://placehold.co/200x100")),
+                            ),
+                            Text('${model.title}'),
+                            Text('${model.artistDisplayName}'),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              );
+                );
+              });
             } else {
               return Center(child: CircularProgressIndicator());
             }
           });
-    });
+    } else {
+      final model = Cache.of(context)?.cache['${widget.objectId}']!;
+      return LayoutBuilder(builder: (context, constraints) {
+        return SizedBox(
+          width: constraints.maxWidth / 2,
+          child: IntrinsicHeight(
+            child: Card(
+              elevation: 10,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12.0),
+                      child: Image(
+                          fit: BoxFit.fitWidth,
+                          image: NetworkImage(model.primaryImageSmall ??
+                              model.primaryImage ??
+                              "https://placehold.co/200x100")),
+                    ),
+                    Text('${model.title}'),
+                    Text('${model.artistDisplayName}'),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      });
+    }
   }
 }

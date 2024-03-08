@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_db/widgets/small_art_widget.dart';
 
+import '../models/cache.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -15,7 +17,9 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           title: Text('Gallery'),
         ),
-        body: ListView.builder(
-            itemBuilder: ((context, index) => SmallArtWidget(index))));
+        body: Cache(
+          child: ListView.builder(
+              itemBuilder: ((context, index) => SmallArtWidget(index))),
+        ));
   }
 }
