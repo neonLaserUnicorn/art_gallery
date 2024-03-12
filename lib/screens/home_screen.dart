@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_db/models/gallery_buffer.dart';
 import 'package:movie_db/widgets/small_art_widget.dart';
 
 import '../models/cache.dart';
@@ -11,6 +12,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    // GalleryBuffer.createList();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
