@@ -21,9 +21,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (context) => const HomeScreen(),
-        '/art': (context) => const BigArtWidget(
-              model: null,
-            ),
+        '/art': (context) => const BigArtWidget(),
       },
       initialRoute: '/',
     );

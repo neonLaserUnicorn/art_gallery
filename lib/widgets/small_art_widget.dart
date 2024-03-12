@@ -50,29 +50,26 @@ class _SmallArtWidgetState extends State<SmallArtWidget> {
 
   Widget _buildCached(BuildContext context, ArtModel model) {
     return LayoutBuilder(builder: (context, constraints) {
-      return SizedBox(
-        width: constraints.minWidth / 2,
+      return GestureDetector(
+        onTap: () => Navigator.pushNamed(context, '/art', arguments: model),
         child: IntrinsicHeight(
-          child: GestureDetector(
-            onTap: () => Navigator.pushNamed(context, '/art', arguments: model),
-            child: Card(
-              elevation: 10,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(12.0),
-                      child: Image(
-                          fit: BoxFit.fitWidth,
-                          image: NetworkImage(model.primaryImageSmall ??
-                              model.primaryImage ??
-                              "https://placehold.co/200x100")),
-                    ),
-                    Text(model.title!),
-                    Text(model.artistDisplayName!),
-                  ],
-                ),
+          child: Card(
+            elevation: 10,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12.0),
+                    child: Image(
+                        fit: BoxFit.fitWidth,
+                        image: NetworkImage(model.primaryImageSmall ??
+                            model.primaryImage ??
+                            "https://placehold.co/200x100")),
+                  ),
+                  Text(model.title!),
+                  Text(model.artistDisplayName!),
+                ],
               ),
             ),
           ),

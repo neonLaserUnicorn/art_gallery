@@ -18,8 +18,13 @@ class _HomeScreenState extends State<HomeScreen> {
           title: Text('Gallery'),
         ),
         body: Cache(
-          child: Builder(builder: (context) {
-            return ListView.builder(
+          child: Builder(builder: (context)
+              //TODO: children should have dynamic height
+              {
+            return GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, childAspectRatio: 0.5),
+                shrinkWrap: true,
                 itemBuilder: ((context, index) => SmallArtWidget(index)));
           }),
         ));
