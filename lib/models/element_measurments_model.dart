@@ -4,9 +4,9 @@ part 'element_measurments_model.g.dart';
 
 @JsonSerializable()
 class ElementMeasurments {
-  final double Height;
-  final double Length;
-  final double Width;
+  final double? Height;
+  final double? Length;
+  final double? Width;
 
   ElementMeasurments(
       {required this.Height, required this.Length, required this.Width});

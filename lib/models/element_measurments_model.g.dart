@@ -8,9 +8,9 @@ part of 'element_measurments_model.dart';
 
 ElementMeasurments _$ElementMeasurmentsFromJson(Map<String, dynamic> json) =>
     ElementMeasurments(
-      Height: (json['Height'] as num).toDouble(),
-      Length: (json['Length'] as num).toDouble(),
-      Width: (json['Width'] as num).toDouble(),
+      Height: (json['Height'] as num?)?.toDouble(),
+      Length: (json['Length'] as num?)?.toDouble(),
+      Width: (json['Width'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$ElementMeasurmentsToJson(ElementMeasurments instance) =>

@@ -73,7 +73,7 @@ ArtModel _$ArtModelFromJson(Map<String, dynamic> json) => ArtModel(
           ?.map((e) => TagsModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       objectWikidata_URL: json['objectWikidata_URL'] as String?,
-      isTimelimeWork: json['isTimelimeWork'] as bool? ?? false,
+      isTimelimeWork: json['isTimelimeWork'] as bool?,
       GalleryNumber: json['GalleryNumber'] as String?,
     );
 

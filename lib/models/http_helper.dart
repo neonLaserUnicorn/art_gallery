@@ -26,7 +26,6 @@ class HttpHelper {
     if (result.statusCode == HttpStatus.ok) {
       final jsonResult = jsonDecode(result.body) as Map<String, dynamic>;
       final art = ArtModel.fromJson(jsonResult);
-      print('!!!${art.objectID}');
       return art;
     } else {
       return null;

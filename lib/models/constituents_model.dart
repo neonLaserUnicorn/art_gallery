@@ -4,12 +4,12 @@ part "constituents_model.g.dart";
 
 @JsonSerializable()
 class ConstituentsModel {
-  final int constituentID;
-  final String role;
-  final String name;
-  final String constituentULAN_URL;
-  final String constituentWikidata_URL;
-  final String gender;
+  final int? constituentID;
+  final String? role;
+  final String? name;
+  final String? constituentULAN_URL;
+  final String? constituentWikidata_URL;
+  final String? gender;
 
   ConstituentsModel(
       {required this.constituentID,

@@ -7,9 +7,9 @@ part of 'tags_model.dart';
 // **************************************************************************
 
 TagsModel _$TagsModelFromJson(Map<String, dynamic> json) => TagsModel(
-      term: json['term'] as String,
-      AAT_URL: json['AAT_URL'] as String,
-      Wikidata_URL: json['Wikidata_URL'] as String,
+      term: json['term'] as String?,
+      AAT_URL: json['AAT_URL'] as String?,
+      Wikidata_URL: json['Wikidata_URL'] as String?,
     );
 
 Map<String, dynamic> _$TagsModelToJson(TagsModel instance) => <String, dynamic>{

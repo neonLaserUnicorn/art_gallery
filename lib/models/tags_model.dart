@@ -4,9 +4,9 @@ part 'tags_model.g.dart';
 
 @JsonSerializable()
 class TagsModel {
-  final String term;
-  final String AAT_URL;
-  final String Wikidata_URL;
+  final String? term;
+  final String? AAT_URL;
+  final String? Wikidata_URL;
 
   TagsModel(
       {required this.term, required this.AAT_URL, required this.Wikidata_URL});
